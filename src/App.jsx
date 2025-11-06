@@ -1,54 +1,56 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import DashboardPreview from './components/DashboardPreview';
+import Footer from './components/Footer';
 import AIAssistantWidget from './components/AIAssistantWidget';
+import RouteTransition from './components/RouteTransition';
+import { UIProvider } from './context/UIContext';
 
-function Footer() {
-  return (
-    <footer id="about" className="mt-16 border-t border-zinc-200/60 bg-white/70 py-10 dark:border-zinc-800/60 dark:bg-zinc-900/70">
-      <div className="mx-auto max-w-7xl px-4">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-          <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">About JournalistTool</h3>
-            <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
-              A professional platform for journalists to monitor sources, detect new articles, and get AI-powered insights in real-time.
-            </p>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">Product</h3>
-            <ul className="mt-2 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-              <li>Dashboard</li>
-              <li>Sources</li>
-              <li>Alerts</li>
-              <li>Billing & Plans</li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="text-sm font-semibold text-zinc-900 dark:text-white">Security & Compliance</h3>
-            <ul className="mt-2 space-y-1 text-sm text-zinc-600 dark:text-zinc-400">
-              <li>Privacy</li>
-              <li>Terms</li>
-              <li>Enterprise</li>
-              <li>Trust Center</li>
-            </ul>
-          </div>
-        </div>
-        <p className="mt-8 text-xs text-zinc-500">© {new Date().getFullYear()} JournalistTool. All rights reserved.</p>
-      </div>
-    </footer>
-  );
-}
+// Pages
+import HomePage from './pages/Home';
+import FeaturesPage from './pages/Features';
+import PricingPage from './pages/Pricing';
+import ContactPage from './pages/Contact';
+import SignInPage from './pages/SignIn';
+import SignUpPage from './pages/SignUp';
+import ForgotPasswordPage from './pages/ForgotPassword';
+import DashboardLayout from './pages/dashboard/DashboardLayout';
+import DashboardArticles from './pages/dashboard/Articles';
+import DashboardSources from './pages/dashboard/Sources';
+import DashboardSummaries from './pages/dashboard/Summaries';
+import DashboardNotifications from './pages/dashboard/Notifications';
+import DashboardSettings from './pages/dashboard/Settings';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-white to-zinc-50 text-zinc-900 antialiased dark:from-zinc-950 dark:to-zinc-900 dark:text-zinc-100">
-      <Navbar />
-      <main>
-        <Hero />
-        <DashboardPreview />
-      </main>
-      <Footer />
-      <AIAssistantWidget />
-    </div>
+    <UIProvider>
+      <div className="min-h-screen bg-black text-white antialiased">
+        <BrowserRouter>
+          <Navbar />
+          <main className="min-h-[70vh]">
+            <Routes>
+              <Route element={<RouteTransition />}> 
+                <Route path="/" element={<HomePage />} />
+                <Route path="/features" element={<FeaturesPage />} />
+                <Route path="/pricing" element={<PricingPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/signin" element={<SignInPage />} />
+                <Route path="/signup" element={<SignUpPage />} />
+                <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                <Route path="/dashboard" element={<DashboardLayout />}>
+                  <Route index element={<DashboardArticles />} />
+                  <Route path="articles" element={<DashboardArticles />} />
+                  <Route path="sources" element={<DashboardSources />} />
+                  <Route path="summaries" element={<DashboardSummaries />} />
+                  <Route path="notifications" element={<DashboardNotifications />} />
+                  <Route path="settings" element={<DashboardSettings />} />
+                </Route>
+              </Route>
+            </Routes>
+          </main>
+          <Footer />
+          <AIAssistantWidget />
+        </BrowserRouter>
+      </div>
+    </UIProvider>
   );
 }

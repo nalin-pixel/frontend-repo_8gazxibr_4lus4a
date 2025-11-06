@@ -2,8 +2,9 @@
 > vibe-generated-app@1.0.0 dev
 > vite
 
-
-  VITE v5.4.20  ready in 204 ms
-
-  ➜  Local:   http://localhost:3000/
-  ➜  Network: http://172.20.24.242:3000/
+error when starting dev server:
+Error: Port 3000 is already in use
+    at Server.onError (file:///home/workspace/nod7:18:34 PM [vite] Pre-transform error: Transform failed with 1 error:
+/home/workspace/src/pages/dashboard/DashboardLayout.jsx:1:65: ERROR: Syntax error "n"
+7:18:34 PM [vite] Pre-transform error: Transform failed with 1 error:
+/home/workspace/src/pages/Dashboard.jsx:1:52: ERROR: Syntax error "n"
